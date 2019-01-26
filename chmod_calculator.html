@@ -1,0 +1,163 @@
+<title>CHMOD Calculator</title>
+<h1>CHMOD Calculator</h1>
+</div>
+
+
+<script language="JavaScript">
+var box;
+var a;
+var b;
+
+// Function
+function calc(user, number) {
+  // Owner
+  if (user == 'owner' && number == '4') box = eval("document.all.chmod.owner4");
+  if (user == 'owner' && number == '2') box = eval("document.all.chmod.owner2");
+  if (user == 'owner' && number == '1') box = eval("document.all.chmod.owner1");
+
+  // Group
+  if (user == 'group' && number == '4') box = eval("document.all.chmod.group4");
+  if (user == 'group' && number == '2') box = eval("document.all.chmod.group2");
+  if (user == 'group' && number == '1') box = eval("document.all.chmod.group1");
+
+  // Other
+  if (user == 'other' && number == '4') box = eval("document.all.chmod.other4");
+  if (user == 'other' && number == '2') box = eval("document.all.chmod.other2");
+  if (user == 'other' && number == '1') box = eval("document.all.chmod.other1");
+
+  if (box.checked == true) {
+    // Owner
+    if (user == 'owner') {
+      document.chmod.h_owner.value += ' + number';
+      a = document.all.chmod.h_owner.value;
+      b= eval(a);
+      document.all.chmod.h_owner.value=b;
+      document.all.chmod.t_owner.value=b;
+    }
+    // Group
+    if (user == 'group') {
+      document.all.chmod.h_group.value += ' + number';
+      a= document.all.chmod.h_group.value;
+      b= eval(a);
+      document.all.chmod.h_group.value = b;
+      document.all.chmod.t_group.value = b;
+    }
+    // Other
+    if (user == 'other') {
+      document.chmod.h_other.value += ' + number';
+      a= document.all.chmod.h_other.value;
+      b= eval(a);
+      document.all.chmod.h_other.value = b;
+      document.all.chmod.t_other.value = b;
+    }
+  }
+
+  if (box.checked == false) {
+    // Owner
+    if (user == 'owner') {
+      if (document.all.chmod.h_owner.value == '') {
+	document.all.chmod.t_owner.value=""
+      } else {
+	a = document.all.chmod.h_owner.value;
+        b = a - number;
+	c = eval(b);
+	document.all.chmod.h_owner.value = c;
+	document.all.chmod.t_owner.value = c;
+      }
+    }
+    // Group
+    if (user == 'group') {
+      if (document.all.chmod.h_group.value == '') {
+	document.all.chmod.t_group.value="";
+      }else {
+	a = document.all.chmod.h_group.value;
+	b = a - number;
+	c = eval(b);
+	document.all.chmod.h_group.value=c;
+	document.all.chmod.t_group.value=c;
+      }
+    }
+    // Other
+    if (user == 'other') {
+      if (document.all.chmod.h_other.value == '') {
+	document.all.chmod.t_other.value=""
+      } else {
+	a = document.all.chmod.h_other.value;
+	b = a - number;
+	c = eval(b);
+	document.all.chmod.h_other.value=c;
+	document.all.chmod.t_other.value=c;
+      }
+    }
+  }
+}
+
+</script>
+
+<div align="center">
+<form name="chmod">
+  <input name="h_owner" type="hidden" value="0">
+  <input name="h_group" type="hidden" value="0">
+  <input name="h_other" type="hidden" value="0">
+  <table bgcolor="#000000" cellpadding="5" cellspacing="1">
+    <tbody><tr bgcolor="#ffffff" align="center">
+      <td colspan="4"><b>CHMOD Calculator</b></td>
+    </tr>
+    <tr bgcolor="#ffffff" align="center">
+      <td><b>Permission</b></td>
+      <td><b>Owner</b></td>
+      <td><b>Group</b></td>
+      <td><b>Other</b></td>
+    </tr>
+    <tr bgcolor="#ffffff" align="center">
+      <td><b>Read</b> (4)</td>
+      <td><input type="checkbox" name="owner4" value="4" onclick="calc(&#39;owner&#39;, 4)"></td>
+      <td><input type="checkbox" name="group4" value="4" onclick="calc(&#39;group&#39;, 4)"></td>
+      <td><input type="checkbox" name="other4" value="4" onclick="calc(&#39;other&#39;, 4)"></td>
+    </tr>
+    <tr bgcolor="#ffffff" align="center">
+      <td><b>Write</b> (2)</td>
+      <td><input type="checkbox" name="owner2" value="2" onclick="calc(&#39;owner&#39;, 2)"></td>
+      <td><input type="checkbox" name="group2" value="2" onclick="calc(&#39;group&#39;, 2)"></td>
+      <td><input type="checkbox" name="other2" value="2" onclick="calc(&#39;other&#39;, 2)"></td>
+    </tr>
+    <tr bgcolor="#ffffff" align="center">
+      <td><b>Execute</b> (1)</td>
+      <td><input type="checkbox" name="owner1" value="1" onclick="calc(&#39;owner&#39;, 1)"></td>
+      <td><input type="checkbox" name="group1" value="1" onclick="calc(&#39;group&#39;, 1)"></td>
+      <td><input type="checkbox" name="other1" value="1" onclick="calc(&#39;other&#39;, 1)"></td>
+    </tr>
+    <tr bgcolor="#ffffff" align="center">
+      <td><b>Value</b></td>
+      <td><input type="text" name="t_owner" value="0" size="1" readonly="" onfocus="this.blur()"></td>
+      <td><input type="text" name="t_group" value="0" size="1" readonly="" onfocus="this.blur()"></td>
+      <td><input type="text" name="t_other" value="0" size="1" readonly="" onfocus="this.blur()"></td>
+    </tr>
+  </tbody></table>
+</form>
+</div>
+
+<h2>Permission</h2>
+
+<li> <code>-rw-r--r--</code> (644)
+<li> <code>dr--------</code> (400)
+
+<p>
+  First character
+  <ul>
+  <li> <code>-</code> File.
+  <li> <code>d</code> repository.
+  <li> <code>l</code> symbolic link.
+  </ul>
+<p>
+  Other characters
+  <ul>
+  <li> <code>r</code> for Read (4).
+  <li> <code>w</code> for Write (2).
+  <li> <code>x</code> for Execute (1).
+  <li> 7 for all rights.
+  <li> First 3 characters for the owner's permissions.
+  <li> Second 3 characters for the group's permissions.
+  <li> Third 3 characters for the other's permissions.
+  </ul>
+  </p>
